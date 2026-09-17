@@ -6,6 +6,10 @@ Official PyTorch implementation of
 > Bolin Wan, Mao Ye\*, Yuchen He, Hu Wang, Yuman Wang, Dengyan Luo, Luping Ji
 > *IEEE Transactions on Geoscience and Remote Sensing (TGRS), 2026.* DOI: [10.1109/TGRS.2026.3730866](https://doi.org/10.1109/TGRS.2026.3730866)
 
+<p align="center">
+  <img src="overall_framework.png" alt="Overall framework of MPR-Net" width="100%"/>
+</p>
+
 MPR-Net identifies *target-like pseudo candidates* that share partial target-related components with the true
 target, and aggregates their distributed evidence through graph propagation to strengthen weak small-target
 representations. It consists of
