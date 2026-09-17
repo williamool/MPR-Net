@@ -29,14 +29,6 @@ text encoder, FLOPs are per-frame inference cost).
 
 All weights are in one Baidu Netdisk folder: [MPR-Net-Weights](https://pan.baidu.com/s/1SeEoWcbTtp68vSEN8GrmEQ?pwd=85m5) (code `85m5`).
 
-Differencing strategy of the explicit motion prior (Table VIII, mAP50 / F1):
-
-| λ (compensated weight) | DAUB-R        | IRDST-H       | IRSTD-UAV     |
-|------------------------|---------------|---------------|---------------|
-| 0   (raw)              | 86.70 / 93.83 | 59.00 / 77.32 | 94.30 / 97.46 |
-| 0.5 (fusion, default)  | **93.40 / 97.34** | **63.50 / 80.22** | 94.60 / 97.61 |
-| 1   (compensated)      | 90.70 / 95.79 | 52.00 / 72.57 | **95.20 / 97.91** |
-
 ## Installation
 
 Tested with Python 3.12, PyTorch 2.8.0 + CUDA 12.8, torch-geometric 2.7.0 on Ubuntu (a single NVIDIA GPU with
@@ -69,7 +61,7 @@ shared in one Baidu Netdisk folder:
 | `IRSTD-UAV.zip` | IRSTD-UAV frames + `train.txt` / `val_coco.json` | 4.9 GB |
 | `motion_difference_map_IRSTD-UAV.zip` | motion priors for IRSTD-UAV (λ = 1.0) | 0.65 GB |
 
-Unzip every archive into `datasets/` (archives larger than 4 GB use Zip64; use a modern `unzip` / 7-Zip):
+Unzip every archive into `datasets/`:
 
 ```bash
 mkdir -p datasets && cd datasets
@@ -99,14 +91,12 @@ datasets/
 └── motion_difference_map_IRSTD-UAV/<sequence>/<frame_id:04d>.png
 ```
 
-`train.txt` / `val.txt` contain one frame per line: `<sequence>/<frame_id>.<ext> x1,y1,x2,y2,cls [...]`
-(paths are relative and re-based onto `--images_root`, so the lists work wherever the data is stored).
 The frames and boxes come from the original releases of DAUB-R (SSTNet), IRDST-H (IRDST) and IRSTD-UAV (TDCNet);
 please also cite the corresponding papers if you use the data.
 
 ### Generating the motion difference maps yourself
 
-The explicit motion prior M_t (Sec. III-B-1, Eq. 1–5) is pre-computed once per frame with `motion_diff/`:
+The explicit motion prior (Sec. III-B-1, Eq. 1–5) is pre-computed once per frame with `motion_diff/`:
 
 ```bash
 # DAUB-R / IRDST-H use lambda = 0.5, IRSTD-UAV uses lambda = 1.0 (dataset presets, see PRESETS in
@@ -219,6 +209,6 @@ MPR-Net
 ## Acknowledgements
 
 The detector is built on the YOLOX implementation of [bubbliiiing/yolox-pytorch](https://github.com/bubbliiiing/yolox-pytorch);
-the high-frequency branch is adapted from [HS-FPN](https://arxiv.org/abs/2412.10116); motion prototypes use
+motion prototypes use
 [OpenAI CLIP](https://github.com/openai/CLIP) and graph propagation uses [PyTorch Geometric](https://github.com/pyg-team/pytorch_geometric).
 We thank the authors of DAUB-R (SSTNet), IRDST-H (IRDST) and IRSTD-UAV (TDCNet) for releasing their datasets.
