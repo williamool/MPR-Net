@@ -1,0 +1,17 @@
+# torch / torchvision: install the build matching your CUDA first, e.g.
+#   pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cu128
+torch>=2.0
+torchvision>=0.15
+torch-geometric>=2.3
+numpy>=1.24
+opencv-python>=4.8
+Pillow>=9.0
+scipy>=1.10
+tqdm>=4.60
+pycocotools>=2.0.6
+thop>=0.1.1
+matplotlib>=3.7
+# CLIP text encoder (frozen ViT-B/32) and its dependencies
+ftfy
+regex
+git+https://github.com/openai/CLIP.git
